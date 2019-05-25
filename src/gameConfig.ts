@@ -18,8 +18,8 @@ export const PhaserGameConfig: Phaser.Types.Core.GameConfig = {
             gravity: { y: 200 }
         }
     },
-    width: 256,
-    height: 256,
+    width: 200,
+    height: 160,
     // use class def instead of instance when/if #4522 is resolved
     scene: [
         new BootScene(),
