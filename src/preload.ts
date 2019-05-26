@@ -1,4 +1,7 @@
 const bg = require('./images/bg.png');
+const fox01 = require('./images/fox01.png');
+const fox02 = require('./images/fox02.png');
+const hedgie01 = require('./images/hedgie01.png');
 
 export class PreloadScene extends Phaser.Scene {
     private bmtLoading: Phaser.GameObjects.BitmapText;
@@ -14,6 +17,9 @@ export class PreloadScene extends Phaser.Scene {
 
         // load all resources here
         this.load.image('bg', bg);
+        this.load.image('fox01', fox01);
+        this.load.image('fox02', fox02);
+        this.load.image('hedgie01', hedgie01);
     }
 
     create(): void {
