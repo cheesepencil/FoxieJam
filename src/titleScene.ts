@@ -8,10 +8,10 @@ export class TitleScene extends Phaser.Scene {
     }
 
     create(): void {
-        this.bg = this.add.container(0,0).setAlpha(0);
-        this.bg.add(this.add.image(0,0,'bg').setOrigin(0,0));
-        this.bg.add(this.add.image(200,0,'bg').setOrigin(0,0));
-        this.bg.add(this.add.image(400,0,'bg').setOrigin(0,0));
+        this.bg = this.add.container(0, 0).setAlpha(0);
+        this.bg.add(this.add.image(0, 0, 'bg').setOrigin(0, 0));
+        this.bg.add(this.add.image(200, 0, 'bg').setOrigin(0, 0));
+        this.bg.add(this.add.image(400, 0, 'bg').setOrigin(0, 0));
 
         this.add.bitmapText(100, 80, 'PressStart2P-White', 'FOREST SCAMPER')
             .setOrigin(0.5, 0.5);
@@ -23,27 +23,27 @@ export class TitleScene extends Phaser.Scene {
 
         this.tweens.add({
             targets: this.bg,
-            duration: 10000,
+            duration: 20000,
             x: -400,
             repeat: -1
         });
 
         this.tweens.add({
             targets: this.bg,
-            duration: 2500,
+            duration: 1000,
             alpha: 1,
             repeat: 0
         });
 
         this.tweens.add({
             targets: pressSpace,
-            duration: 1000,
+            duration: 500,
             alpha: 0,
             repeat: -1,
             yoyo: true
         });
 
-        this.cameras.main.fadeIn(2000, 0, 0, 0, this.fadeCheck, this);
+        this.cameras.main.fadeIn(500, 0, 0, 0, this.fadeCheck, this);
     }
 
     update(): void {
