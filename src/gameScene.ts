@@ -14,6 +14,7 @@ export class GameScene extends Phaser.Scene {
     private fox: Phaser.GameObjects.Sprite;
     private framesJump: number;
     private hedgie: Phaser.GameObjects.Sprite;
+    private ouch: boolean;
 
     constructor() {
         super({ key: 'GameScene' })
@@ -23,6 +24,7 @@ export class GameScene extends Phaser.Scene {
         this.score = 0;
         this.scrollSpeed = 1;
         this.framesJump = 0;
+        this.ouch = false;
     }
 
     create(): void {
@@ -60,6 +62,9 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.existing(this.fox);
         this.physics.add.existing(floor, true);
         this.physics.add.collider(this.fox, floor);
+        this.physics.add.existing(this.hedgie);
+        this.physics.add.overlap(this.fox, this.hedgie);
+        (this.hedgie.body as Phaser.Physics.Arcade.Body).setAllowGravity(false);
 
         // add score UI
         this.add.bitmapText(4, 4, 'PressStart2P-White', 'SCORE:')
@@ -78,18 +83,25 @@ export class GameScene extends Phaser.Scene {
     update(): void {
         const foxBody = this.fox.body as Physics.Arcade.Body;
 
-        this.scrollBg();
-        if (foxBody.touching.down) {
-            this.framesJump = 0;
-        } else if (this.cursors.space.isUp) {
-            this.framesJump = Infinity;
+        if (this.ouch === false) {
+            if (this.physics.world.collide(this.fox, this.hedgie)) {
+                this.ouch = true;
+            }
+            else {
+                this.scrollBg();
+                if (foxBody.touching.down) {
+                    this.framesJump = 0;
+                } else if (this.cursors.space.isUp) {
+                    this.framesJump = Infinity;
+                }
+                if (this.cursors.space.isDown && this.framesJump < 30) {
+                    this.framesJump++;
+                    foxBody.setVelocityY(-75);
+                }
+                this.score += 2;
+                this.scoreText.setText(this.score.toString());
+            }
         }
-        if (this.cursors.space.isDown && this.framesJump < 30) {
-            this.framesJump++;
-            foxBody.setVelocityY(-75);
-        }
-        this.score += 10;
-        this.scoreText.setText(this.score.toString());
     }
 
     private scrollBg() {
@@ -114,7 +126,7 @@ export class GameScene extends Phaser.Scene {
         if (this.hedgie.x < -16) {
             this.hedgie.setX(200);
         } else {
-            this.hedgie.setX(this.hedgie.x -this.scrollSpeed);
+            this.hedgie.setX(this.hedgie.x - this.scrollSpeed);
         }
     }
 }
