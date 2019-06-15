@@ -2,6 +2,8 @@ const bg = require('./images/bg.png');
 const fox01 = require('./images/fox01.png');
 const fox02 = require('./images/fox02.png');
 const hedgie01 = require('./images/hedgie01.png');
+const oof: string = require('./audio/oof.wav');
+const boing: string = require('./audio/boing.wav');
 
 export class PreloadScene extends Phaser.Scene {
     private bmtLoading: Phaser.GameObjects.BitmapText;
@@ -20,6 +22,8 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image('fox01', fox01);
         this.load.image('fox02', fox02);
         this.load.image('hedgie01', hedgie01);
+        this.load.audio('oof', oof);
+        this.load.audio('boing', boing);
     }
 
     create(): void {
